@@ -1,58 +1,38 @@
 package euler;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-
-public class Problem43 {
-
-	public static void main(String[] args) {
-		System.out.println(problem43());
+public class Problem43
+{
+	public static void main(String[] args)
+	{
+		long sum = 0;
+		for (long i = 1000000000L; i < 9999999999L; i++)
+		{
+			if (i % 100000000L == 0)
+			{
+				System.out.println(i);
+			}
+			if (isPandigital(Long.toString(i)))
+			{
+				String n = Long.toString(i);
+				if (Long.parseLong("" + n.charAt(1) + n.charAt(2) + n.charAt(3)) % 2 == 0 && Long.parseLong("" + n.charAt(2) + n.charAt(3) + n.charAt(4)) % 3 == 0 && Long.parseLong("" + n.charAt(3) + n.charAt(4) + n.charAt(5)) % 5 == 0 && Long.parseLong("" + n.charAt(4) + n.charAt(5) + n.charAt(6)) % 7 == 0 && Long.parseLong("" + n.charAt(5) + n.charAt(6) + n.charAt(7)) % 11 == 0 && Long.parseLong("" + n.charAt(6) + n.charAt(7) + n.charAt(8)) % 13 == 0 && Long.parseLong("" + n.charAt(7) + n.charAt(8) + n.charAt(9)) % 17 == 0)
+				{
+					sum += i;
+					System.out.println(i);
+				}
+			}
+		}
+		System.out.println(sum);
 	}
-	
-	private static boolean isPandigital(BigInteger num) {
-		List<Long> digits = new ArrayList<>();
-		for (long i = 0; i < 10; i++) {
-			digits.add(i);
-		}
-		char[] newNum = num.toString().toCharArray();
-		if (newNum.length != 10) {
-			return false;
-		}
-		for (char c: newNum) {
-			if (digits.contains(Character.getNumericValue(c))) {
-				digits.remove(Character.getNumericValue(c));
-			} else {
+
+	public static boolean isPandigital(String num)
+	{
+		for (int i = 0; i < num.length(); i++)
+		{
+			if (!num.contains(Integer.toString(i)))
+			{
 				return false;
 			}
 		}
 		return true;
-	}
-	
-	private static BigInteger problem43() {
-		BigInteger sum = BigInteger.ZERO;
-		char[] currentNum = {};
-		for (BigInteger i = new BigInteger("1000000000"); i.compareTo(new BigInteger("9999999999"))  == -1; i = i.add(BigInteger.ONE)) {
-			if (isPandigital(i)) {
-				currentNum = i.toString().toCharArray();
-				if ((Character.getNumericValue(currentNum[1]) * 100 + Character.getNumericValue(currentNum[2]) * 10 + Character.getNumericValue(currentNum[3])) % 2 != 0) {
-					continue;
-				} else if ((Character.getNumericValue(currentNum[2]) * 100 + Character.getNumericValue(currentNum[3]) * 10 + Character.getNumericValue(currentNum[4])) % 3 != 0) {
-					continue;
-				} else if ((Character.getNumericValue(currentNum[3]) * 100 + Character.getNumericValue(currentNum[4]) * 10 + Character.getNumericValue(currentNum[5])) % 5 != 0) {
-					continue;
-				} else if ((Character.getNumericValue(currentNum[4]) * 100 + Character.getNumericValue(currentNum[5]) * 10 + Character.getNumericValue(currentNum[6])) % 7 != 0) {
-					continue;
-				} else if ((Character.getNumericValue(currentNum[5]) * 100 + Character.getNumericValue(currentNum[6]) * 10 + Character.getNumericValue(currentNum[7])) % 11 != 0) {
-					continue;
-				} else if ((Character.getNumericValue(currentNum[6]) * 100 + Character.getNumericValue(currentNum[7]) * 10 + Character.getNumericValue(currentNum[8])) % 13 != 0) {
-					continue;
-				} else if ((Character.getNumericValue(currentNum[7]) * 100 + Character.getNumericValue(currentNum[8]) * 10 + Character.getNumericValue(currentNum[9])) % 17 != 0) {
-					continue;
-				}
-				sum = sum.add(i);
-			}
-		}
-		return sum;
 	}
 }
